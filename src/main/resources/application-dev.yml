@@ -1,0 +1,24 @@
+server:
+  error:
+    include-stacktrace: on_param
+  servlet:
+    context-path: /multi-tenancy
+  port: '7077'
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss.SSS
+    time-zone: UTC
+  datasource:
+    password: multi
+    username: multi
+    url: jdbc:postgresql://localhost:7076/multi_tenancy
+    driverClassName: org.postgresql.Driver
+  jpa:
+    show-sql: 'false'
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+    open-in-view: false
+jwt:
+  secret: 8pxTH7h8yk@8#jAZjDGaHv%d%fWqUr9zR!4WTzbJ
+  expiration: 19999999

@@ -1,0 +1,12 @@
+version: '3.1'
+services:
+  driver-hero-db:
+    image: postgres:14.0
+    container_name: multi-tenancy-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=multi-tenancy-db
+      - POSTGRES_USER=multi
+      - POSTGRES_PASSWORD=multi
+    ports:
+      - "7076:5432"
