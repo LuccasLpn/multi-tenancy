@@ -33,6 +33,15 @@ public class UserService {
         return repository.save(user);
     }
 
+    public void delete(Long id) throws Exception {
+        User user = findByIdOrElseThrow(id);
+        repository.delete(user);
+    }
+
+    public User findByIdOrElseThrow(Long id) throws Exception {
+        return repository.findById(id).orElseThrow(()-> new Exception("User Not Found"));
+    }
+
 
     public Boolean findByUser(UserDtoLogin user){
         User findByEmail = Optional.ofNullable(repository.findByEmail(user.getEmail()))

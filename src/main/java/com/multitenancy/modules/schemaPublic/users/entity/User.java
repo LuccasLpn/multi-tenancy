@@ -2,6 +2,7 @@ package com.multitenancy.modules.schemaPublic.users.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.multitenancy.modules.schemaPublic.customer.entity.Customer;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

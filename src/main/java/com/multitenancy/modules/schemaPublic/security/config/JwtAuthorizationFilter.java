@@ -15,12 +15,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     private JwtUtil jwtUtil;
+
+    private final String[] public_routes = {
+            "/multi-tenancy/user",
+            "/multi-tenancy/customer",
+    };
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -33,7 +41,16 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             String schema = claims.get("schema").toString();
             UsernamePasswordAuthenticationToken authentication = getAuthentication(authorization);
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            TenantContext.setCurrentTenant(schema.toLowerCase());
+            String requestURL = request.getRequestURL().toString().replace("//", "/");
+            for (int i = 0; i < public_routes.length; i++) {
+                List<String> listRoutes = Arrays.stream(public_routes).toList();
+                String[] urlSplit = requestURL.split("/");
+                String urlCompare = "/" + urlSplit[2] + "/" + urlSplit[3];
+                if (listRoutes.get(i).equals(urlCompare)) {
+                    schema = "public";
+                }
+                TenantContext.setCurrentTenant(schema);
+            }
         }
         filterChain.doFilter(request, response);
     }
