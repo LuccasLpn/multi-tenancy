@@ -31,3 +31,9 @@ CREATE TABLE IF NOT EXISTS users
 
 ALTER TABLE users
     ADD CONSTRAINT FK_USERS_ON_CUSTOMER FOREIGN KEY (customer_id) REFERENCES customer (id);
+
+
+INSERT INTO public.customer (id,name,address,cnpj,is_active,insert_customer,update_customer) VALUES
+    (1,'Master','Av.Brasil','79111540000100',true,'2022-08-22 19:43:13.406','2022-08-22 19:43:13.406');
+INSERT INTO public.users (id,"password",email,name,is_active,authorities,"schema",insert_user,update_user,customer_id) VALUES
+    (1,'$2a$10$P.XQqykx1Ji9XAvrmBduy.Vi6j3AJTR5SO0HfHo1hC6UJyP3DSuSm','Master@outlook.com','Master',true,'Admin','Master','2022-08-22 19:45:07.983','2022-08-22 19:45:07.983',1);
