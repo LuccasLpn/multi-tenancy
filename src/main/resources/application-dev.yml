@@ -19,6 +19,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQL10Dialect
     open-in-view: false
+  flyway:
+    enabled: off
 jwt:
   secret: 8pxTH7h8yk@8#jAZjDGaHv%d%fWqUr9zR!4WTzbJ
   expiration: 19999999
