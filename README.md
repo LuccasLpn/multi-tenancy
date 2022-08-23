@@ -1,5 +1,14 @@
 # Multi-Tenancy
 
+## Para que serve o Multi-Tenancy
+```
+- Teremos um schema Public, com as tabelas Customer é User.
+- Dentro da Tabela tem uma coluna com o nome schema.
+- Quando for salvar uma trip um interceptor vai pegar o token, extrair um claim com o nome schema
+- Depois de extrair esse claim, ele vai tentar criar o schema, caso o schema exista ele vai salvar a trip no schema daquele customer
+- Para cada Customer teremos um schema diferente 
+```
+
 ## Construído com as seguintes tecnologias
 
 ```
