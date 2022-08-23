@@ -6,7 +6,7 @@
 - Dentro da Tabela tem uma coluna com o nome schema.
 - Quando for salvar uma trip um interceptor vai pegar o token, extrair um claim com o nome schema
 - Depois de extrair esse claim, ele vai tentar criar o schema, caso o schema exista ele vai salvar a trip no schema daquele customer
-- Para cada Customer teremos um schema diferente 
+- Para cada Customer teremos um schema diferente, com base na migration1
 ```
 
 ## Construído com as seguintes tecnologias
