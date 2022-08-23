@@ -5,7 +5,6 @@ import org.flywaydb.core.Flyway;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
 import org.springframework.stereotype.Component;
-
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -33,8 +32,10 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
     public Connection getConnection(String tenantIdentifier) throws SQLException {
         final Connection connection = getAnyConnection();
         try {
-            connection.createStatement().execute("create schema if not exists " + tenantIdentifier);
-            String sql = "set schema " + "'" + tenantIdentifier + "'";
+            String createSchema = "create schema if not exists " + tenantIdentifier;
+            connection.createStatement().execute(createSchema.toLowerCase());
+            String setSchema = "set schema " + "'" + tenantIdentifier + "'";
+            connection.createStatement().execute(setSchema.toLowerCase());
             if (!"public".equals(tenantIdentifier)){
                 Flyway flyway = Flyway
                         .configure()
@@ -45,7 +46,6 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
                         .load();
                 flyway.migrate();
             }
-            connection.createStatement().execute(sql);
         } catch (SQLException e) {
             throw new HibernateException("Não foi possivel alterar para o schema [" + tenantIdentifier + "]", e);
         }
@@ -53,7 +53,7 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
     }
 
     @Override
-    public void releaseConnection(String tenantIdentifier, Connection connection) throws SQLException {
+    public void releaseConnection(String tenantIdentifier, Connection connection) {
         try (connection) {
             String sql = "set schema " + "'" + TenantContext.DEFAULT_TENANT + "'";
             connection.createStatement().execute(sql);

@@ -31,9 +31,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     };
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         request.setAttribute("Authorization", "");
         String authorization = request.getHeader("Authorization");
         if (authorization != null && authorization.startsWith("Bearer ")) {
@@ -49,7 +47,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
                 if (listRoutes.get(i).equals(urlCompare)) {
                     schema = "public";
                 }
-                TenantContext.setCurrentTenant(schema);
+                TenantContext.setCurrentTenant(schema.toLowerCase());
             }
         }
         filterChain.doFilter(request, response);
