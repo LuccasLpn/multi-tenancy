@@ -24,6 +24,20 @@
 - Escolha o arquivo do aplicativo de inicialização do Spring (pesquise @SpringBootApplication)
 - Clique com o botão direito do mouse no arquivo e execute
 ```
+## Fazer Login
+```
+- Use o endpoint "http://localhost:7077/multi-tenancy/auth/login"
+- Coloque esse JsonObject ->
+{
+    "email": "master@outlook.com",
+    "password": "master"
+}
+- Retornando HttpStatus 200 Ok, pegue o token que será gerado nos Headers da request
+- Esse Token deve ser passado nas próximo requisições
+- Com base nos claims do token ele vai criar um schema diferente, é vai executar a migration do flyway, criando uma tabela trip
+- Caso o schema já exista ele ira salvar a trip naquele schema
+```
+
 ## URL USER
 |  URL |  Method | Remarks |
 |----------|--------------|--------------|
