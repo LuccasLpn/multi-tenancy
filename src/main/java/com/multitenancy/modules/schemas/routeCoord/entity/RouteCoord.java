@@ -26,9 +26,6 @@ public class RouteCoord {
     @Column(name = "city")
     private String city;
 
-    @Column(name = "device_id")
-    private String deviceId;
-
     @Column(name = "speed")
     private Double speed;
 

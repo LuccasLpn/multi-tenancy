@@ -9,7 +9,6 @@ import java.time.ZonedDateTime;
 @Builder
 public class RouteCoordPut {
     private String city;
-    private String deviceId;
     private Double speed;
     private Long tripId;
     private LatLongDto location;

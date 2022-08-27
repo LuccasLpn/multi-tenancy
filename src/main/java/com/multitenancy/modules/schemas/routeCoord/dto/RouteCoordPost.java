@@ -12,7 +12,6 @@ public class RouteCoordPost {
 
     private Long id;
     private String city;
-    private String deviceId;
     private Double speed;
     private Long tripId;
     private LatLongDto location;

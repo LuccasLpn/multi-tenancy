@@ -15,7 +15,6 @@ CREATE TABLE IF NOT EXISTS routecoord
 (
     id        BIGINT NOT NULL,
     city      VARCHAR(255),
-    device_id VARCHAR(255),
     speed     DOUBLE PRECISION,
     location  TEXT,
     timestamp TIMESTAMP with time zone,
@@ -25,6 +24,20 @@ CREATE TABLE IF NOT EXISTS routecoord
 
 ALTER TABLE routecoord
     ADD CONSTRAINT FK_ROUTECOORD_ON_TRIP FOREIGN KEY (trip_id) REFERENCES trip (id);
+
+
+CREATE TABLE IF NOT EXISTS passenger
+(
+    id        BIGINT NOT NULL,
+    name      VARCHAR(255),
+    matricula VARCHAR(255),
+    company   VARCHAR(255),
+    trip_id   BIGINT NOT NULL,
+    CONSTRAINT pk_passenger PRIMARY KEY (id)
+);
+
+ALTER TABLE passenger
+    ADD CONSTRAINT FK_PASSENGER_ON_TRIP FOREIGN KEY (trip_id) REFERENCES trip (id);
 
 
 CREATE SEQUENCE routecoord_seq
