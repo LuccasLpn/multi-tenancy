@@ -10,6 +10,7 @@ import java.time.ZonedDateTime;
 public class RouteCoordPut {
     private String city;
     private String deviceId;
+    private Double speed;
     private Long tripId;
     private LatLongDto location;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

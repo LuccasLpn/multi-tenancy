@@ -16,9 +16,10 @@ CREATE TABLE IF NOT EXISTS routecoord
     id        BIGINT NOT NULL,
     city      VARCHAR(255),
     device_id VARCHAR(255),
-    trip_id   BIGINT NOT NULL,
+    speed     DOUBLE PRECISION,
     location  TEXT,
     timestamp TIMESTAMP with time zone,
+    trip_id   BIGINT NOT NULL,
     CONSTRAINT pk_routecoord PRIMARY KEY (id)
 );
 

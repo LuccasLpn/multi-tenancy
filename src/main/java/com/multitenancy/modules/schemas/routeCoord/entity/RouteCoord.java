@@ -29,10 +29,8 @@ public class RouteCoord {
     @Column(name = "device_id")
     private String deviceId;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "trip_id", referencedColumnName = "id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Trip trip;
+    @Column(name = "speed")
+    private Double speed;
 
     @Column(name = "location", columnDefinition = "text")
     @Convert(converter = ConverterLatLongDto.class)
@@ -40,6 +38,11 @@ public class RouteCoord {
 
     @Column(name = "timestamp")
     private ZonedDateTime timestamp;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "trip_id", referencedColumnName = "id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Trip trip;
 
 
 
