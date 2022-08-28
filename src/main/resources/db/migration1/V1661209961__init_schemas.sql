@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS trip
     CONSTRAINT pk_trip PRIMARY KEY (id)
 );
 
-ALTER TABLE trip ADD CONSTRAINT FK_TRIP_ON_USER FOREIGN KEY (user_id) REFERENCES users (id);
+ALTER TABLE trip
+    ADD CONSTRAINT FK_TRIP_ON_USER FOREIGN KEY (user_id) REFERENCES users (id);
 
 
 CREATE TABLE IF NOT EXISTS routecoord
@@ -40,6 +41,32 @@ ALTER TABLE passenger
     ADD CONSTRAINT FK_PASSENGER_ON_TRIP FOREIGN KEY (trip_id) REFERENCES trip (id);
 
 
+CREATE TABLE IF NOT EXISTS emergency_record
+(
+    id          BIGINT NOT NULL,
+    name        VARCHAR(255),
+    description TEXT,
+    customer_id BIGINT NOT NULL,
+    CONSTRAINT pk_emergency_record PRIMARY KEY (id)
+);
+
+ALTER TABLE emergency_record
+    ADD CONSTRAINT FK_EMERGENCY_RECORD_ON_CUSTOMER FOREIGN KEY (customer_id) REFERENCES customer (id);
+
+
+CREATE SEQUENCE emergency_record_seq
+    AS bigint
+    INCREMENT 1
+    MINVALUE 1
+    NO MAXVALUE
+    NO CYCLE
+    START WITH 1
+    OWNED BY emergency_record.id;
+
+ALTER TABLE emergency_record
+    ALTER COLUMN id SET DEFAULT nextval('emergency_record_seq'::regclass);
+
+
 CREATE SEQUENCE routecoord_seq
     AS bigint
     INCREMENT 1
@@ -49,7 +76,8 @@ CREATE SEQUENCE routecoord_seq
     START WITH 1
     OWNED BY routecoord.id;
 
-ALTER TABLE routecoord ALTER COLUMN id SET DEFAULT nextval('routecoord_seq'::regclass);
+ALTER TABLE routecoord
+    ALTER COLUMN id SET DEFAULT nextval('routecoord_seq'::regclass);
 
 
 CREATE SEQUENCE trip_seq
@@ -61,4 +89,21 @@ CREATE SEQUENCE trip_seq
     START WITH 1
     OWNED BY trip.id;
 
-ALTER TABLE trip ALTER COLUMN id SET DEFAULT nextval('trip_seq'::regclass);
+ALTER TABLE trip
+    ALTER COLUMN id SET DEFAULT nextval('trip_seq'::regclass);
+
+
+
+CREATE SEQUENCE passenger_seq
+    AS bigint
+    INCREMENT 1
+    MINVALUE 1
+    NO MAXVALUE
+    NO CYCLE
+    START WITH 1
+    OWNED BY passenger.id;
+
+ALTER TABLE passenger
+    ALTER COLUMN id SET DEFAULT nextval('passenger_seq'::regclass);
+
+
